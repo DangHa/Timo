@@ -14,6 +14,7 @@ import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
+    //Ket noi voi facebook
     let fblogin:FBSDKLoginManager = FBSDKLoginManager()
     
     @IBAction func updateButton(_ sender: Any) {
@@ -145,11 +146,23 @@ class ProfileViewController: UIViewController {
         if FBSDKAccessToken.current() != nil {
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id,name,location,email"]).start(completionHandler: { (connect, result, err) in
                 if err == nil {
-                    let dict = result as! Dictionary<String,Any>
+                    var dict = result as! Dictionary<String,Any>
                     
                     var location = "Node"
                     if dict["location"] != nil{
-                        location = dict["location"] as! String
+                        
+                        //Xu li chuoi lay moi country
+                        var loc1 = dict["location"] as! String
+                        var flag = 0
+                        for i in 0..<loc1.characters.count{
+                            if loc1[loc1.index(loc1.startIndex, offsetBy: i)] == "," {
+                                flag = i
+                            }
+ 
+                        }
+                        let index = loc1.index(loc1.startIndex, offsetBy: flag+2)
+                        location = loc1.substring(from: index)
+                        
                     }
                     
                     self.sendjson(email: dict["email"] as! String, name: dict["name"] as! String, scores: self.scores, location: location)
@@ -162,18 +175,19 @@ class ProfileViewController: UIViewController {
     func sendjson(email: String, name: String, scores: Int64, location: String) {
         //Stuct Member
         let member = ["Name": name, "Scores": scores, "Email": email, "Country": location] as [String : Any]
-        
+
         //Chuyen sang thanh json
         let jsonMember = try? JSONSerialization.data(withJSONObject: member, options: .prettyPrinted)
         
-        //Tao URL
-        let urlString = "http://jsonplaceholder.typicode.com/posts"
+        //Tao URL ---------------------------- (phai sua lai thanh url cua Gimo) ---------------------------------------
+        let urlString = "http://headers.jsontest.com/"
         let url = URL(string: urlString)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
         request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
         request.httpBody = jsonMember
         
         //Tao Session
@@ -183,7 +197,7 @@ class ProfileViewController: UIViewController {
             if let data = data {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    
+
                     let pos = json as! Dictionary<String,Any>
                     if pos["Position"] != nil {
                         self.position = pos["Position"] as! Int32
@@ -316,7 +330,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 if each.acceptData == true {
                     scores += (Int(each.timeInt)/10+1)
                 }else{
-                    scores -= (Int(each.timeInt)/10+1)*2
+                    scores -= (Int(each.timeInt)/10+1)
                 }
             }
             
@@ -332,9 +346,5 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
         ListTaskProfile = ListTaskProfile.sorted { $0.datePickInt > $1.datePickInt }
     }
-    
-    
-    
-    
     
 }
