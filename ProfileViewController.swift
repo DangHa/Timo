@@ -179,8 +179,8 @@ class ProfileViewController: UIViewController {
         //Chuyen sang thanh json
         let jsonMember = try? JSONSerialization.data(withJSONObject: member, options: .prettyPrinted)
         
-        //Tao URL ---------------------------- (phai sua lai thanh url cua Gimo) ---------------------------------------
-        let urlString = "http://headers.jsontest.com/"
+        //Tao URL
+        let urlString = "http://ec2-52-89-58-97.us-west-2.compute.amazonaws.com:8080/member"
         let url = URL(string: urlString)!
         
         var request = URLRequest(url: url)
@@ -278,7 +278,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         cellProfile.nameLabelProfile.text = failTask.nameTask!
         cellProfile.commentProfile.text = " " + String(describing: failTask.comment!)
         cellProfile.startLabel.text = "Start: " + String(describing: failTask.timeBeginString!)
-        cellProfile.timeLabelProfile.text = "Last: " + String(describing: failTask.timeString!)
+        cellProfile.timeLabelProfile.text = "Time: " + String(describing: failTask.timeString!)
         cellProfile.scoresLabelProfile.text = String(Int(failTask.timeInt/10)+1)
         
         if Int32(dateCur()) - failTask.datePickInt == 0 {

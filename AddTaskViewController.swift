@@ -19,6 +19,7 @@ class AddTaskViewController: UIViewController {
     var month = 0
     var day = 0
     var weekday = 0
+    @IBOutlet weak var weekdayLabel: UILabel!
     @IBOutlet weak var dateSelectedLabel: UILabel!
     
     
@@ -379,6 +380,9 @@ class AddTaskViewController: UIViewController {
             dateOfDataInt = year*356+(year/4) + 1 + totalDayOfMonth + day
         }
         
+        //week day label
+        let weekdayArr:[String] = ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"]
+        weekdayLabel.text = "Selected day is " + weekdayArr[weekday-2]
     }
 
     

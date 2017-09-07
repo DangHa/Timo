@@ -282,7 +282,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.nameTaskLabel.text = task.nameTask!
         cell.commentLabel.text = " " + String(describing: task.comment!)
         cell.timeLabel.text = "Start: " + String(describing: task.timeBeginString!)
-        cell.timeBeginLabel.text = "Last: " + String(describing: task.timeString!)
+        cell.timeBeginLabel.text = "Time: " + String(describing: task.timeString!)
         cell.scoresLabel.text = String((Int(task.timeInt)/10+1))
         
         //To mau ten nhiem vu dang lam trong thoi gian lam
