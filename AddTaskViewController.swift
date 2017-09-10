@@ -381,8 +381,9 @@ class AddTaskViewController: UIViewController {
         }
         
         //week day label
-        let weekdayArr:[String] = ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"]
-        weekdayLabel.text = "Selected day is " + weekdayArr[weekday-2]
+        let weekdayArr:[String] = ["Sunday","Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday"]
+
+        weekdayLabel.text = dateSelecteString + " is " + weekdayArr[weekday-1]
     }
 
     

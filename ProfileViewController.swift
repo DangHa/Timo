@@ -14,6 +14,13 @@ import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
+    //Link den Leaderboard
+    @IBAction func gimoButton(_ sender: Any) {
+        if let url = URL(string: "http://ec2-52-89-58-97.us-west-2.compute.amazonaws.com:8080/") {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
     //Ket noi voi facebook
     let fblogin:FBSDKLoginManager = FBSDKLoginManager()
     
@@ -129,13 +136,12 @@ class ProfileViewController: UIViewController {
     func update(){
         fblogin.logIn(withReadPermissions: ["email"], from: self) { (result, err) in
             if err == nil {
-                print("Login success!")
                 let fbloginresult:FBSDKLoginManagerLoginResult = result!
                 if fbloginresult.grantedPermissions != nil {
                     self.getData()
                 }
             }else{
-                print("Fail!")
+
             }
         }
     }

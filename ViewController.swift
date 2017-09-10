@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     
     @IBAction func addTaskButton(_ sender: Any) {
         
-        if ListTaskArrOnDaySelected.count > 15 {
+        if ListTaskArrOnDaySelected.count > 14 {
             let alert = UIAlertController(title: "Home", message: "You are too hard on this day!", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Cancer", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -351,8 +351,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 for result in results as! [ListTask] {
                     
-                    if let name = result.value(forKey: "nameTask") as? String, let date = result.value(forKey: "datePickInt") as? Int32 {
-                        if name == ListTaskArrOnDaySelected[index].nameTask && date == ListTaskArrOnDaySelected[index].datePickInt{
+                    if let name = result.value(forKey: "nameTask") as? String, let date = result.value(forKey: "datePickInt") as? Int32,let time = result.value(forKey: "timeBeginInt") as? Int16{
+                        if name == ListTaskArrOnDaySelected[index].nameTask && date == ListTaskArrOnDaySelected[index].datePickInt && time == ListTaskArrOnDaySelected[index].timeBeginInt{
                             
                             result.setValue(accept, forKey: "acceptData")
                             
